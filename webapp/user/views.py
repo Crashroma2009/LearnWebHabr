@@ -52,10 +52,16 @@ def process_reg():
     form = RegistrationForm()
     if form.validate_on_submit():
         news_user = User(username=form.username.data, email = form.email.data, role='user')
-        news_user.set_password(form.password.data)
+        news_user.set_password(form.password.da)
         db.session.add(news_user)
         db.session.commit()
         flash('Вы успешно зарегистрировались!')
         return redirect(url_for('user.login'))
-    flash('Пожалуйста, исправьте ошибки в форме')
+    else:
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash('Ошибка в поле {}: {}'.format(
+                    getattr(form, field).label.text,
+                    error
+                ))
     return redirect(url_for('user.register'))

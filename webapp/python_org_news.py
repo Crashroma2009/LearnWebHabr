@@ -1,6 +1,6 @@
 from datetime import datetime
 from webapp.news.models import News
-from webapp.db import db, News
+from webapp.db import db
 import requests
 from bs4 import BeautifulSoup
 #from requests.api import get
